@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Task List</string>
+    <string name="title_all">All Tasks</string>
+    <string name="title_in_progress">In Progress</string>
+    <string name="title_performed">Performed</string>
+    <string name="splash">Splash</string>
+    <string name="title_main">Main</string>
+    <string name="title_create_task">Create Task</string>
+    <string name="content_description">ContentDescription</string>
+    <string name="set_date">Set Date</string>
+    <string name="set_time">Set Time</string>
+    <string name="save">Save</string>
+    <string name="set_reminder_date_and_time">Set reminder date and time</string>
+    <string name="make_a_note_here">Make a note here</string>
+    <string name="note">Note</string>
+    <string name="write_title_here">Write Title Here</string>
+    <string name="title">Title</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="set_alarm">Alarm</string>
+    <string name="_30_minutes_before">30 minutes before</string>
+    <string name="_15_minutes_before">15 minutes before</string>
+    <string name="_10_minutes_before">10 minutes before</string>
+    <string name="_5_minutes_before">5 minutes before</string>
+    <string name="_0_minutes_before">0 minutes before</string>
+    <string name="notification_channel">Notifications</string>
+    <string name="widget_title">Task List</string>
+    <string name="alarm_time">Alarm time</string>
+    <string name="undo_item">Undo item</string>
+    <string name="undo">undo</string>
+
+    <string-array name="errors">
+        <item>-6</item>
+        <item>-5</item>
+        <item>-4</item>
+        <item>-3</item>
+        <item>-2</item>
+        <item>-1</item>
+    </string-array>
+</resources>

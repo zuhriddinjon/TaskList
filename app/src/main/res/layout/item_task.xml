@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="2dp"
+    app:cardCornerRadius="10dp"
+    app:cardUseCompatPadding="true">
+
+    <View
+        android:id="@+id/viewColorTag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/rl_item_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#fffafa"
+        android:paddingBottom="5dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_rl_item_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="5dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@+id/tv_hint_alarm_time"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#303030"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                tools:text="Task Title" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="Task Description " />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_hint_alarm_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:ellipsize="end"
+                android:maxWidth="80dp"
+                android:maxLines="1"
+                android:text="@string/alarm_time"
+                android:textColor="@color/text_hint"
+                android:textSize="12sp" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_alarm_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_hint_alarm_time"
+                android:layout_alignParentEnd="true"
+                android:textColor="#080808"
+                tools:text="12:24 PM" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_hint_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_description"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="15dp"
+                android:text="@string/date"
+                android:textColor="@color/text_hint"
+                android:textSize="12sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_hint_date"
+                android:layout_alignParentStart="true"
+                android:textColor="#080808"
+                tools:text="27-03-2020" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_hint_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_description"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:text="@string/time"
+                android:textColor="@color/text_hint"
+                android:textSize="12sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_hint_time"
+                android:layout_alignParentEnd="true"
+                android:textColor="#080808"
+                tools:text="12:24 PM" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>

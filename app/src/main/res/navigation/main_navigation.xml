@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@+id/splash_fragment">
+
+    <fragment
+        android:id="@+id/splash_fragment"
+        android:name="uz.instat.tasklist.presentation.ui.splash.SplashFragment"
+        android:label="@string/splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splash_to_main"
+            app:destination="@id/main_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="uz.instat.tasklist.presentation.ui.MainFragment"
+        android:label="@string/title_main"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_main_to_create"
+            app:destination="@id/create_task_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/main_fragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/create_task_fragment"
+        android:name="uz.instat.tasklist.presentation.ui.alltodo.CreateTaskFragment"
+        android:label="@string/title_create_task"
+        tools:layout="@layout/fragment_create_task">
+        <argument
+            android:name="task"
+            android:defaultValue="@null"
+            app:argType="uz.instat.tasklist.busines.local.TaskLocal"
+            app:nullable="true" />
+    </fragment>
+
+</navigation>
