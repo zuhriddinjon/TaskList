@@ -6,9 +6,9 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import uz.instat.tasklist.busines.local.TaskLocal
-import uz.instat.tasklist.busines.util.logi
 
 
 class AlarmHelper constructor(
@@ -27,13 +27,33 @@ class AlarmHelper constructor(
             context, (task.time - task.alarmTime).toInt(),
             intent, PendingIntent.FLAG_UPDATE_CURRENT
         )
-        mAlarmManager.set(AlarmManager.RTC_WAKEUP, task.time - task.alarmTime, pendingIntent1)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            mAlarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                task.time - task.alarmTime,
+                pendingIntent1
+            )
+        else
+            mAlarmManager.setExact(
+                AlarmManager.RTC_WAKEUP,
+                task.time - task.alarmTime,
+                pendingIntent1
+            )
+
 
         val pendingIntent = PendingIntent.getBroadcast(
             context, task.time.toInt(),
             intent, PendingIntent.FLAG_UPDATE_CURRENT
         )
-        mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, task.time, pendingIntent)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            mAlarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                task.time,
+                pendingIntent
+            )
+        else
+            mAlarmManager.setExact(AlarmManager.RTC_WAKEUP, task.time, pendingIntent)
+
     }
 
     fun removeNotification(id: Long, context: Context) {

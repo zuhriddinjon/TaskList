@@ -1,6 +1,5 @@
 package uz.instat.tasklist.framework.datasource
 
-import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import uz.instat.tasklist.busines.cache.data.TaskCache
 import uz.instat.tasklist.busines.interactors.DataState
@@ -8,6 +7,8 @@ import uz.instat.tasklist.busines.interactors.DataState
 interface MainDataSource {
 
     fun saveTask(task: TaskCache): Flow<DataState<Long>>
+
+    fun updateTask(task: TaskCache): Flow<DataState<Unit>>
 
     fun getAllTasks(): Flow<DataState<List<TaskCache>>>
 

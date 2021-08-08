@@ -6,6 +6,7 @@
     <string name="splash">Splash</string>
     <string name="title_main">Main</string>
     <string name="title_create_task">Create Task</string>
+    <string name="title_update_task">Update Task</string>
     <string name="content_description">ContentDescription</string>
     <string name="set_date">Set Date</string>
     <string name="set_time">Set Time</string>
@@ -18,6 +19,7 @@
     <string name="time">Time</string>
     <string name="date">Date</string>
     <string name="set_alarm">Alarm</string>
+    <string name="_60_minutes_before">1 hours before</string>
     <string name="_30_minutes_before">30 minutes before</string>
     <string name="_15_minutes_before">15 minutes before</string>
     <string name="_10_minutes_before">10 minutes before</string>
@@ -28,6 +30,8 @@
     <string name="alarm_time">Alarm time</string>
     <string name="undo_item">Undo item</string>
     <string name="undo">undo</string>
+    <string name="error_req_field">All fields must be completed!</string>
+    <string name="update">Update</string>
 
     <string-array name="errors">
         <item>-6</item>

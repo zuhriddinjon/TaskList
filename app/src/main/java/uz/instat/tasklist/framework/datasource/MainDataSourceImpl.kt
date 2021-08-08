@@ -24,6 +24,17 @@ class MainDataSourceImpl @Inject constructor(
         }
     }
 
+    override fun updateTask(task: TaskCache): Flow<DataState<Unit>> {
+        return flow {
+            try {
+                emit(DataState.data(dao.updateTask(task)))
+            } catch (e: Exception) {
+                loge(e.message)
+                emit(DataState.error<Unit>(-1))
+            }
+        }
+    }
+
     override fun getAllTasks(): Flow<DataState<List<TaskCache>>> {
         return flow {
             try {

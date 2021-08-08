@@ -35,8 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@+id/tv_hint_alarm_time"
+                android:layout_toStartOf="@+id/tv_time"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="#303030"
@@ -46,79 +45,43 @@
 
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_description"
+                android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_title"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:maxLines="1"
+                android:layout_alignParentEnd="true"
+                android:drawableStart="@drawable/ic_time"
+                android:drawablePadding="2dp"
+                android:gravity="center"
+                android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                tools:text="Task Description " />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_hint_alarm_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:ellipsize="end"
-                android:maxWidth="80dp"
-                android:maxLines="1"
-                android:text="@string/alarm_time"
-                android:textColor="@color/text_hint"
-                android:textSize="12sp" />
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_alarm_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_hint_alarm_time"
-                android:layout_alignParentEnd="true"
-                android:textColor="#080808"
                 tools:text="12:24 PM" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_hint_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_description"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="15dp"
-                android:text="@string/date"
-                android:textColor="@color/text_hint"
-                android:textSize="12sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_hint_date"
+                android:layout_below="@id/tv_title"
                 android:layout_alignParentStart="true"
-                android:textColor="#080808"
+                android:layout_toStartOf="@+id/tv_alarm_time"
+                android:drawableStart="@drawable/ic_date"
+                android:drawablePadding="2dp"
+                android:gravity="center|start"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
                 tools:text="27-03-2020" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_hint_time"
+                android:id="@+id/tv_alarm_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_description"
+                android:layout_below="@id/tv_title"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="15dp"
-                android:text="@string/time"
-                android:textColor="@color/text_hint"
-                android:textSize="12sp" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_hint_time"
-                android:layout_alignParentEnd="true"
-                android:textColor="#080808"
-                tools:text="12:24 PM" />
+                android:drawableStart="@drawable/ic_alarm"
+                android:drawablePadding="2dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                tools:text="@string/_30_minutes_before" />
 
         </RelativeLayout>
 

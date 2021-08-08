@@ -68,7 +68,7 @@ class MainViewModel @Inject constructor(
         _saveTaskState.postValue(Event(UiState.Loading()))
         viewModelScope.launch {
             val taskLocal = TaskLocal(
-                id = 0,
+                id = 0L,
                 title = title,
                 description = description,
                 time = time,
@@ -86,6 +86,29 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private val _updateTaskState = MutableLiveData<Event<UiState<Unit>>>()
+    val updateTaskState: LiveData<Event<UiState<Unit>>> = _updateTaskState
+
+    fun updateTask(task: TaskLocal, title: String, description: String, time: Long) {
+        _updateTaskState.postValue(Event(UiState.Loading()))
+        viewModelScope.launch {
+            val taskLocal = TaskLocal(
+                id = task.id,
+                title = title,
+                description = description,
+                time = time,
+                alarmTime = alarmType.value
+            )
+            repository.updateTask(
+                taskLocal
+            ).collect {
+                removeAlarm(task)
+                alarmHelper.setAlarm(taskLocal)
+                _updateTaskState.postValue(Event(it))
+            }
+        }
+    }
+
     private val _deleteTaskState = MutableLiveData<Event<UiState<Unit>>>()
     val deleteTaskState: LiveData<Event<UiState<Unit>>> = _deleteTaskState
 
@@ -93,11 +116,15 @@ class MainViewModel @Inject constructor(
         _deleteTaskState.postValue(Event(UiState.Loading()))
         viewModelScope.launch {
             repository.deleteTask(task.id).collect {
-                alarmHelper.removeNotification(task.id, getApplication())
-                alarmHelper.removeAlarm(task.time - task.alarmTime)
-                alarmHelper.removeAlarm(task.time)
+                removeAlarm(task)
                 _deleteTaskState.postValue(Event(it))
             }
         }
+    }
+
+    private fun removeAlarm(task: TaskLocal) {
+        alarmHelper.removeNotification(task.id, getApplication())
+        alarmHelper.removeAlarm(task.time - task.alarmTime)
+        alarmHelper.removeAlarm(task.time)
     }
 }

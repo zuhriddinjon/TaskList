@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
 import uz.instat.tasklist.R
 import uz.instat.tasklist.databinding.FragmentMainBinding
@@ -63,6 +63,23 @@ class MainFragment : Fragment() {
             (childFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment)
                 .navController
         binding.bottomNav.setupWithNavController(navController)
+        NavigationBarView.OnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_all_tasks -> {
+                    binding.toolbar.title = getString(R.string.title_all)
+                    true
+                }
+                R.id.navigation_in_progress_tasks -> {
+                    binding.toolbar.title = getString(R.string.title_in_progress)
+                    true
+                }
+                R.id.navigation_performed_tasks -> {
+                    binding.toolbar.title = getString(R.string.title_performed)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
 

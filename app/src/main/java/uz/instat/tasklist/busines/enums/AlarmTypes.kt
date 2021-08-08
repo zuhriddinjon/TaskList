@@ -5,6 +5,7 @@ import uz.instat.tasklist.busines.util.getString
 
 
 enum class AlarmTypes(val title: String, val value: Long) {
+    BEFORE_60(getString(R.string._60_minutes_before), 60 * 60 * 1000),
     BEFORE_30(getString(R.string._30_minutes_before), 30 * 60 * 1000),
     BEFORE_15(getString(R.string._15_minutes_before), 15 * 60 * 1000),
     BEFORE_10(getString(R.string._10_minutes_before), 10 * 60 * 1000),

@@ -1,9 +1,6 @@
 package uz.instat.tasklist.busines.cache.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import uz.instat.tasklist.busines.cache.data.TaskCache
 
 @Dao
@@ -11,6 +8,9 @@ interface TaskDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTask(task: TaskCache): Long
+
+    @Update
+    suspend fun updateTask(task: TaskCache): Unit
 
     @Query("select * from task")
     suspend fun getAllTasks(): List<TaskCache>
@@ -31,6 +31,6 @@ interface TaskDao {
     suspend fun getTask(id: Long): TaskCache
 
     @Query("delete from task  where _id=:id")
-    suspend fun deleteTask(id: Long)
+    suspend fun deleteTask(id: Long):Unit
 
 }

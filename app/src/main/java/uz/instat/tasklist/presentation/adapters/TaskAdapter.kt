@@ -81,7 +81,6 @@ class TaskAdapter :
                     }
                 viewColorTag.setBackgroundColor(color)
                 tvTitle.text = task.title
-                tvDescription.text = task.description
 
                 tvTime.text = task.time.hour
                 tvDate.text = task.time.date

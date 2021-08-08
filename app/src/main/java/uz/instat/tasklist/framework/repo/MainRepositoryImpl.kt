@@ -1,8 +1,5 @@
 package uz.instat.tasklist.framework.repo
 
-import android.content.Context
-import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import uz.instat.tasklist.busines.cache.data.TaskCache
@@ -10,7 +7,6 @@ import uz.instat.tasklist.busines.interactors.DataStateHandler
 import uz.instat.tasklist.busines.interactors.UiState
 import uz.instat.tasklist.busines.local.TaskCacheMapper
 import uz.instat.tasklist.busines.local.TaskLocal
-import uz.instat.tasklist.busines.util.logi
 import uz.instat.tasklist.framework.datasource.MainDataSource
 import javax.inject.Inject
 
@@ -28,6 +24,18 @@ class MainRepositoryImpl @Inject constructor(
                 }
             }.getResult()
         }
+    }
+
+    override fun updateTask(task: TaskLocal): Flow<UiState<Unit>> {
+        val cache = cacheMapper.mapFromLocal(task)
+        return mainDataSource.updateTask(cache).map {
+            object : DataStateHandler<Unit, Unit>(it) {
+                override fun handleSuccess(data: Unit): UiState.Success<Unit> {
+                    return UiState.Success(data)
+                }
+            }.getResult()
+        }
+
     }
 
     override fun getAllTasks(): Flow<UiState<List<TaskLocal>>> {
@@ -75,7 +83,6 @@ class MainRepositoryImpl @Inject constructor(
 
     override fun inProgressTask(id: Long): Flow<UiState<Unit>> {
         return mainDataSource.inProgressTask(id).map {
-            logi("inProgressTask")
             object : DataStateHandler<Unit, Unit>(it) {
                 override fun handleSuccess(data: Unit): UiState.Success<Unit> {
                     return UiState.Success(data)

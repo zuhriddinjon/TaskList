@@ -1,6 +1,5 @@
 package uz.instat.tasklist.framework.repo
 
-import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import uz.instat.tasklist.busines.interactors.UiState
 import uz.instat.tasklist.busines.local.TaskLocal
@@ -9,6 +8,8 @@ import uz.instat.tasklist.busines.local.TaskLocal
 interface MainRepository {
 
     fun saveTask(task: TaskLocal): Flow<UiState<Long>>
+
+    fun updateTask(task: TaskLocal): Flow<UiState<Unit>>
 
     fun getAllTasks(): Flow<UiState<List<TaskLocal>>>
 
