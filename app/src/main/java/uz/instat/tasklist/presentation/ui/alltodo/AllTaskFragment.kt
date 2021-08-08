@@ -121,8 +121,9 @@ class AllTaskFragment : Fragment(), View.OnClickListener, OnItemClickListener<Ta
 
             override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
                 // Snackbar closed on its own
-                if (lastRemovedTask != null)
+                if (lastRemovedTask != null) {
                     viewModel.deleteTask(lastRemovedTask!!)
+                }
             }
         })
         snackbar.show()
@@ -133,11 +134,9 @@ class AllTaskFragment : Fragment(), View.OnClickListener, OnItemClickListener<Ta
             is UiState.Loading -> {
             }
             is UiState.Success -> {
-                if (it.data != null && it.data.isNotEmpty()) {
-                    taskList.clear()
-                    taskList.addAll(it.data)
-                    tAdapter.submitList(taskList)
-                }
+                taskList.clear()
+                taskList.addAll(it.data ?: emptyList())
+                tAdapter.submitList(taskList)
             }
             is UiState.Error -> {
             }
@@ -149,7 +148,6 @@ class AllTaskFragment : Fragment(), View.OnClickListener, OnItemClickListener<Ta
             is UiState.Loading -> {
             }
             is UiState.Success -> {
-
             }
             is UiState.Error -> {
             }
@@ -179,6 +177,5 @@ class AllTaskFragment : Fragment(), View.OnClickListener, OnItemClickListener<Ta
 
     override fun onItemClicked(position: Int, item: TaskLocal) {
         navController.navigate(MainFragmentDirections.actionMainToCreate(item))
-
     }
 }

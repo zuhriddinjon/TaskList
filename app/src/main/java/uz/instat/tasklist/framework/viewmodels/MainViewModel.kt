@@ -12,6 +12,7 @@ import uz.instat.tasklist.busines.enums.AlarmTypes
 import uz.instat.tasklist.busines.interactors.UiState
 import uz.instat.tasklist.busines.local.TaskLocal
 import uz.instat.tasklist.busines.util.Event
+import uz.instat.tasklist.busines.util.logi
 import uz.instat.tasklist.framework.repo.MainRepository
 import uz.instat.tasklist.framework.services.alarm.AlarmHelper
 import javax.inject.Inject
@@ -29,8 +30,10 @@ class MainViewModel @Inject constructor(
     val allTasks: LiveData<UiState<List<TaskLocal>>> = _allTasks
 
     fun getAllTasks() {
+        logi("all")
         _allTasks.postValue(UiState.Loading())
         viewModelScope.launch {
+            logi("alllal")
             repository.getAllTasks().collect {
                 _allTasks.postValue(it)
             }

@@ -52,9 +52,7 @@ class PerformedFragment : Fragment() {
             is UiState.Loading -> {
             }
             is UiState.Success -> {
-                if (it.data != null && it.data.isNotEmpty()) {
-                    tAdapter.submitList(it.data)
-                }
+                tAdapter.submitList(it.data ?: emptyList())
             }
             is UiState.Error -> {
             }
