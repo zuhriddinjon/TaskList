@@ -20,7 +20,7 @@ class PerformedFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
     private var _binding: FragmentPerformedTaskBinding? = null
     private val binding get() = _binding!!
-    private val tAdapter: TaskAdapter by lazy(LazyThreadSafetyMode.NONE) { TaskAdapter() }
+    private val tAdapter: TaskAdapter by lazy(LazyThreadSafetyMode.NONE) { TaskAdapter(false) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

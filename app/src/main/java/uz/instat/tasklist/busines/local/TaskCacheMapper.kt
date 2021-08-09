@@ -2,6 +2,7 @@ package uz.instat.tasklist.busines.local
 
 import uz.instat.tasklist.busines.cache.CacheMapper
 import uz.instat.tasklist.busines.cache.data.TaskCache
+import uz.instat.tasklist.busines.enums.TaskStatus
 import javax.inject.Inject
 
 class TaskCacheMapper @Inject constructor() : CacheMapper<TaskCache, TaskLocal>() {
@@ -12,7 +13,7 @@ class TaskCacheMapper @Inject constructor() : CacheMapper<TaskCache, TaskLocal>(
             description = local.description,
             time = local.time,
             alarmTime = local.alarmTime,
-            status = local.status
+            status = local.status.value
         )
     }
 
@@ -23,7 +24,7 @@ class TaskCacheMapper @Inject constructor() : CacheMapper<TaskCache, TaskLocal>(
             description = cache.description,
             time = cache.time,
             alarmTime = cache.alarmTime,
-            status = cache.status
+            status = TaskStatus.getByValue(cache.status)
         )
     }
 }

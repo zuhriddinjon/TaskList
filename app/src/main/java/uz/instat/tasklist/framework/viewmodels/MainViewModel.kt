@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import uz.instat.tasklist.busines.enums.AlarmTypes
+import uz.instat.tasklist.busines.enums.TaskStatus
 import uz.instat.tasklist.busines.interactors.UiState
 import uz.instat.tasklist.busines.local.TaskLocal
 import uz.instat.tasklist.busines.util.Event
@@ -30,10 +31,8 @@ class MainViewModel @Inject constructor(
     val allTasks: LiveData<UiState<List<TaskLocal>>> = _allTasks
 
     fun getAllTasks() {
-        logi("all")
         _allTasks.postValue(UiState.Loading())
         viewModelScope.launch {
-            logi("alllal")
             repository.getAllTasks().collect {
                 _allTasks.postValue(it)
             }
@@ -121,6 +120,26 @@ class MainViewModel @Inject constructor(
             repository.deleteTask(task.id).collect {
                 removeAlarm(task)
                 _deleteTaskState.postValue(Event(it))
+            }
+        }
+    }
+
+    private val _stateTaskState = MutableLiveData<Event<UiState<Unit>>>()
+    val stateTaskState: LiveData<Event<UiState<Unit>>> = _stateTaskState
+
+    fun setStatusTask(id: Long, state: TaskStatus) {
+        _deleteTaskState.postValue(Event(UiState.Loading()))
+        viewModelScope.launch {
+            when (state) {
+                TaskStatus.FINISH -> repository.finishTask(id).collect {
+                    _deleteTaskState.postValue(Event(it))
+                }
+                TaskStatus.IN_PROGRESS -> repository.inProgressTask(id).collect {
+                    _deleteTaskState.postValue(Event(it))
+                }
+                TaskStatus.CREATE -> {
+                    _deleteTaskState.postValue(Event(UiState.Success(Unit)))
+                }
             }
         }
     }

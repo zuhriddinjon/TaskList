@@ -5,27 +5,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import uz.instat.tasklist.R
+import uz.instat.tasklist.busines.enums.TaskStatus
 import uz.instat.tasklist.busines.local.TaskLocal
 import uz.instat.tasklist.busines.util.date
-import uz.instat.tasklist.busines.util.getManualColor
 import uz.instat.tasklist.busines.util.hour
 import uz.instat.tasklist.busines.util.inflater
 import uz.instat.tasklist.databinding.ItemTaskBinding
 import java.util.*
 import kotlin.collections.ArrayList
 
-
-class TaskAdapter :
+class TaskAdapter(private val isAll: Boolean = true) :
     RecyclerView.Adapter<TaskAdapter.TaskViewHolder>(), Filterable {
 
     private val taskList: MutableList<TaskLocal> = mutableListOf()
     private val taskListFull: ArrayList<TaskLocal> = ArrayList(taskList)
 
-    private var onItemClickListener: OnItemClickListener<TaskLocal>? = null
-    fun onItemClickListener(onItemClickListener: OnItemClickListener<TaskLocal>) {
-        this.onItemClickListener = onItemClickListener
+    private var onTaskClickListener: OnTaskClickListener<TaskLocal>? = null
+    fun onItemClickListener(onTaskClickListener: OnTaskClickListener<TaskLocal>) {
+        this.onTaskClickListener = onTaskClickListener
     }
 
     fun submitList(taskList: List<TaskLocal>) {
@@ -37,7 +36,7 @@ class TaskAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         return TaskViewHolder(
             ItemTaskBinding.inflate(parent.inflater(), parent, false),
-            onItemClickListener
+            onTaskClickListener, isAll
         )
     }
 
@@ -48,13 +47,31 @@ class TaskAdapter :
         holder.bind(taskList[position])
     }
 
+    override fun onBindViewHolder(
+        holder: TaskViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isNotEmpty()) {
+            for (payload in payloads) {
+                if (payload is TaskStatus) {
+                    holder.binding.viewColorTag.setBackgroundColor(payload.color)
+                    holder.binding.checkbox.isChecked = payload.isChecked
+                }
+            }
+        } else {
+            super.onBindViewHolder(holder, position, payloads)
+        }
+    }
+
     override fun getItemId(position: Int): Long {
         return taskList[position].id
     }
 
     class TaskViewHolder(
-        private val binding: ItemTaskBinding,
-        private val onItemClickListener: OnItemClickListener<TaskLocal>?
+        val binding: ItemTaskBinding,
+        private val onTaskClickListener: OnTaskClickListener<TaskLocal>?,
+        private val isAll: Boolean = true
     ) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
@@ -63,33 +80,24 @@ class TaskAdapter :
         fun bind(task: TaskLocal) {
             this.task = task
             with(binding) {
+                checkbox.isVisible = isAll
                 root.setOnClickListener(this@TaskViewHolder)
-                val color =
-                    when (task.status) {
-                        0 -> {
-                            getManualColor(R.color.blue)
-                        }
-                        1 -> {
-                            getManualColor(R.color.green)
-                        }
-                        2 -> {
-                            getManualColor(R.color.red)
-                        }
-                        else -> {
-                            getManualColor(R.color.blue)
-                        }
-                    }
-                viewColorTag.setBackgroundColor(color)
+                viewColorTag.setBackgroundColor(task.status.color)
+                checkbox.isChecked = task.status.isChecked
                 tvTitle.text = task.title
 
                 tvTime.text = task.time.hour
                 tvDate.text = task.time.date
                 tvAlarmTime.text = (task.time - task.alarmTime).hour
+
+                checkbox.setOnCheckedChangeListener { _, isChecked ->
+                    onTaskClickListener?.onItemChecked(adapterPosition, task, isChecked)
+                }
             }
         }
 
         override fun onClick(v: View) {
-            onItemClickListener?.onItemClicked(adapterPosition, task!!)
+            onTaskClickListener?.onItemClicked(adapterPosition, task!!)
         }
     }
 
@@ -135,8 +143,10 @@ class TaskAdapter :
 
 }
 
-interface OnItemClickListener<T> {
+interface OnTaskClickListener<T> {
     fun onItemClicked(position: Int, item: T)
+
+    fun onItemChecked(position: Int, item: T, isChecked: Boolean)
 }
 
 

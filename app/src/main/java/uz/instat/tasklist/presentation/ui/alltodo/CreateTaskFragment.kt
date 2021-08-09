@@ -30,13 +30,13 @@ import uz.instat.tasklist.databinding.BottomsheetAlarmBinding
 import uz.instat.tasklist.databinding.FragmentCreateTaskBinding
 import uz.instat.tasklist.framework.viewmodels.MainViewModel
 import uz.instat.tasklist.presentation.adapters.AlarmTypeAdapter
-import uz.instat.tasklist.presentation.adapters.OnItemClickListener
+import uz.instat.tasklist.presentation.adapters.OnAlarmTypeClickListener
 import uz.instat.tasklist.presentation.ui.MainActivity
 import java.util.*
 
 
 @AndroidEntryPoint
-class CreateTaskFragment : Fragment(), View.OnClickListener, OnItemClickListener<AlarmTypes> {
+class CreateTaskFragment : Fragment(), View.OnClickListener, OnAlarmTypeClickListener<AlarmTypes> {
 
     private val viewModel: MainViewModel by activityViewModels()
     private var _binding: FragmentCreateTaskBinding? = null

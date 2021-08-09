@@ -15,9 +15,9 @@ class AlarmTypeAdapter :
 
     private val typeList: MutableList<AlarmTypes> = mutableListOf()
 
-    private var onItemClickListener: OnItemClickListener<AlarmTypes>? = null
-    fun onItemClickListener(onItemClickListener: OnItemClickListener<AlarmTypes>) {
-        this.onItemClickListener = onItemClickListener
+    private var onTaskClickListener: OnAlarmTypeClickListener<AlarmTypes>? = null
+    fun onItemClickListener(onTaskClickListener: OnAlarmTypeClickListener<AlarmTypes>) {
+        this.onTaskClickListener = onTaskClickListener
     }
 
     fun submitList(typeList: List<AlarmTypes>) {
@@ -29,7 +29,7 @@ class AlarmTypeAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmTypeViewHolder {
         return AlarmTypeViewHolder(
             ItemBottomsheetBinding.inflate(parent.inflater(), parent, false),
-            onItemClickListener
+            onTaskClickListener
         )
     }
 
@@ -42,7 +42,7 @@ class AlarmTypeAdapter :
 
     class AlarmTypeViewHolder(
         private val binding: ItemBottomsheetBinding,
-        private val onItemClickListener: OnItemClickListener<AlarmTypes>?
+        private val onTaskClickListener: OnAlarmTypeClickListener<AlarmTypes>?
     ) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
@@ -57,9 +57,13 @@ class AlarmTypeAdapter :
         }
 
         override fun onClick(v: View) {
-            onItemClickListener?.onItemClicked(adapterPosition, type!!)
+            onTaskClickListener?.onItemClicked(adapterPosition, type!!)
         }
     }
+}
+
+interface OnAlarmTypeClickListener<T> {
+    fun onItemClicked(position: Int, item: T)
 }
 
 

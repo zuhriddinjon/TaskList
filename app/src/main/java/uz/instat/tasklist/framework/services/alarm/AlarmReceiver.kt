@@ -89,8 +89,6 @@ class AlarmReceiver : BroadcastReceiver() {
         goAsync(GlobalScope, Dispatchers.Default) {
             val currentTime = System.currentTimeMillis()
             if (currentTime >= task.time)
-                repository.finishTask(task.id).collect()
-            else if (currentTime >= task.time - task.alarmTime && currentTime <= task.time)
                 repository.inProgressTask(task.id).collect()
         }
 

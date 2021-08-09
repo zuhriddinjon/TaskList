@@ -14,12 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import uz.instat.tasklist.R
+import uz.instat.tasklist.busines.enums.TaskStatus
 import uz.instat.tasklist.busines.interactors.UiState
 import uz.instat.tasklist.busines.local.TaskLocal
 import uz.instat.tasklist.busines.util.*
 import uz.instat.tasklist.databinding.FragmentAllTaskBinding
 import uz.instat.tasklist.framework.viewmodels.MainViewModel
-import uz.instat.tasklist.presentation.adapters.OnItemClickListener
+import uz.instat.tasklist.presentation.adapters.OnTaskClickListener
 import uz.instat.tasklist.presentation.adapters.TaskAdapter
 import uz.instat.tasklist.presentation.listener.swipe.MySwipeCallback
 import uz.instat.tasklist.presentation.ui.MainActivity
@@ -27,7 +28,7 @@ import uz.instat.tasklist.presentation.ui.MainFragmentDirections
 
 
 @AndroidEntryPoint
-class AllTaskFragment : Fragment(), View.OnClickListener, OnItemClickListener<TaskLocal> {
+class AllTaskFragment : Fragment(), View.OnClickListener, OnTaskClickListener<TaskLocal> {
 
     private val viewModel: MainViewModel by activityViewModels()
     private var _binding: FragmentAllTaskBinding? = null
@@ -177,5 +178,27 @@ class AllTaskFragment : Fragment(), View.OnClickListener, OnItemClickListener<Ta
 
     override fun onItemClicked(position: Int, item: TaskLocal) {
         navController.navigate(MainFragmentDirections.actionMainToCreate(item))
+    }
+
+    override fun onItemChecked(position: Int, item: TaskLocal, isChecked: Boolean) {
+        if (isChecked) {
+            viewModel.setStatusTask(item.id, TaskStatus.FINISH)
+            binding.rvAllTasks.post {
+                tAdapter.notifyItemChanged(position, TaskStatus.FINISH)
+            }
+        } else {
+            val time = System.currentTimeMillis()
+            if (time >= item.time) {
+                viewModel.setStatusTask(item.id, TaskStatus.IN_PROGRESS)
+                binding.rvAllTasks.post {
+                    tAdapter.notifyItemChanged(position, TaskStatus.IN_PROGRESS)
+                }
+            } else {
+                viewModel.setStatusTask(item.id, TaskStatus.CREATE)
+                binding.rvAllTasks.post {
+                    tAdapter.notifyItemChanged(position, TaskStatus.CREATE)
+                }
+            }
+        }
     }
 }

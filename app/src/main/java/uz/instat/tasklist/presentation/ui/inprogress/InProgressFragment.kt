@@ -20,8 +20,7 @@ class InProgressFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
     private var _binding: FragmentInProgressTaskBinding? = null
     private val binding get() = _binding!!
-    private val tAdapter: TaskAdapter by lazy(LazyThreadSafetyMode.NONE) { TaskAdapter() }
-
+    private val tAdapter: TaskAdapter by lazy(LazyThreadSafetyMode.NONE) { TaskAdapter(false) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +51,7 @@ class InProgressFragment : Fragment() {
             is UiState.Loading -> {
             }
             is UiState.Success -> {
-                tAdapter.submitList(it.data?: emptyList())
+                tAdapter.submitList(it.data ?: emptyList())
             }
             is UiState.Error -> {
             }
