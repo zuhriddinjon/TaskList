@@ -27,6 +27,9 @@ interface TaskDao {
     @Query("update task set status = 1 where _id=:id")
     suspend fun inProgressTask(id: Long): Unit
 
+    @Query("update task set status = 0 where _id=:id")
+    suspend fun createTask(id: Long): Unit
+
     @Query("select * from task where _id=:id")
     suspend fun getTask(id: Long): TaskCache
 

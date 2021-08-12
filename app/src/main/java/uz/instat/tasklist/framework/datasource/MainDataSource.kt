@@ -20,6 +20,8 @@ interface MainDataSource {
 
     fun inProgressTask(id: Long): Flow<DataState<Unit>>
 
+    fun createTask(id: Long): Flow<DataState<Unit>>
+
     fun getTask(id: Long): Flow<DataState<TaskCache>>
 
     fun deleteTask(id: Long): Flow<DataState<Unit>>

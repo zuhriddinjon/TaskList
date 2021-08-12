@@ -13,7 +13,6 @@ import uz.instat.tasklist.busines.enums.TaskStatus
 import uz.instat.tasklist.busines.interactors.UiState
 import uz.instat.tasklist.busines.local.TaskLocal
 import uz.instat.tasklist.busines.util.Event
-import uz.instat.tasklist.busines.util.logi
 import uz.instat.tasklist.framework.repo.MainRepository
 import uz.instat.tasklist.framework.services.alarm.AlarmHelper
 import javax.inject.Inject
@@ -137,8 +136,8 @@ class MainViewModel @Inject constructor(
                 TaskStatus.IN_PROGRESS -> repository.inProgressTask(id).collect {
                     _deleteTaskState.postValue(Event(it))
                 }
-                TaskStatus.CREATE -> {
-                    _deleteTaskState.postValue(Event(UiState.Success(Unit)))
+                TaskStatus.CREATE -> repository.createTask(id).collect {
+                    _deleteTaskState.postValue(Event(it))
                 }
             }
         }

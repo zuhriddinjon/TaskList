@@ -21,6 +21,8 @@ interface MainRepository {
 
     fun inProgressTask(id: Long): Flow<UiState<Unit>>
 
+    fun createTask(id: Long): Flow<UiState<Unit>>
+
     fun getTask(id: Long): Flow<UiState<TaskLocal>>
 
     fun deleteTask(id: Long): Flow<UiState<Unit>>

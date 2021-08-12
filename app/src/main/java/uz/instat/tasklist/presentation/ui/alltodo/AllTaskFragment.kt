@@ -188,6 +188,8 @@ class AllTaskFragment : Fragment(), View.OnClickListener, OnTaskClickListener<Ta
             }
         } else {
             val time = System.currentTimeMillis()
+            logi(time)
+            logi(item.time)
             if (time >= item.time) {
                 viewModel.setStatusTask(item.id, TaskStatus.IN_PROGRESS)
                 binding.rvAllTasks.post {

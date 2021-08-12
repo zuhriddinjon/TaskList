@@ -91,6 +91,16 @@ class MainRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun createTask(id: Long): Flow<UiState<Unit>> {
+        return mainDataSource.createTask(id).map {
+            object : DataStateHandler<Unit, Unit>(it) {
+                override fun handleSuccess(data: Unit): UiState.Success<Unit> {
+                    return UiState.Success(data)
+                }
+            }.getResult()
+        }
+    }
+
     override fun getTask(id: Long): Flow<UiState<TaskLocal>> {
         return mainDataSource.getTask(id).map {
             object : DataStateHandler<TaskCache, TaskLocal>(it) {
